@@ -23,7 +23,27 @@
 <body>
 
 	<!-- Navbar Start -->
-
+	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #EA5329;">
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		  <ul class="navbar-nav mr-auto ">
+			<li class="nav-item active">
+			  <a class="nav-link" href="https://admission.ulbi.ac.id/" style="color: white; margin-left: 500px; margin-right: 20px;"><b>PMB 2023</b></a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link" href="#" style="color: white;">Home</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="http://ulbi.ac.id/" style="color: white; margin-left: 20px;">Conncet To ULBI</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="https://enroll.ulbi.ac.id/Informasi/Call_Us" style="color: white; margin-left: 20px;">Hubungi Kami</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="https://wa.me/628112267778?text=Hallo%20saya%20ingin%20mengetahui%20tentang%20kampus%20lebih%20dalam" style="color: white; margin-left: 20px;">FAQ</a>
+			</li>
+		  </ul>
+		</div>
+	  </nav>
 	<!-- Navbar End -->
 
 	<section class="vh-100 bg-image"
@@ -39,22 +59,21 @@
 					<h2 class="text-uppercase text-center mb-5"><b>Buat Akun Baru</b></h2>
 
 					<form>
-
 						<div class="form-outline mb-4">
-						<label class="form-label" for="form3Example1cg">Nama Lengkap</label>
-						<input type="text" id="form3Example1cg" class="form-control form-control-lg" placeholder="Inputkan Nama Lengkap" />
+							<label class="form-label" for="form3Example1cg">Nama Lengkap</label>
+							<input type="text" id="form3Example1cg" class="form-control form-control-lg" placeholder="Inputkan Nama Lengkap" />
 						</div>
-
+					
 						<div class="form-outline mb-4">
-						<label class="form-label" for="form3Example3cg">Email</label>
-						<input type="email" id="form3Example3cg" class="form-control form-control-lg" placeholder="Inputkan Email" />
+							<label class="form-label" for="form3Example3cg">Email</label>
+							<input type="email" id="form3Example3cg" class="form-control form-control-lg" placeholder="Inputkan Email" />
 						</div>
-
+					
 						<div class="form-outline mb-4">
-						<label class="form-label" for="form3Example4cg">No Handphone/WhatsApp</label>
-						<input type="text" id="form3Example4cg" class="form-control form-control-lg" placeholder="Inputkan No Handphone/WhatsApp" />
+							<label class="form-label" for="form3Example4cg">No Handphone/WhatsApp</label>
+							<input type="text" id="form3Example4cg" class="form-control form-control-lg" placeholder="Inputkan No Handphone/WhatsApp" />
 						</div>
-
+					
 						<div class="form-outline mb-4">
 							<label class="form-label" for="form3Example4cdg">Asal Sekolah</label>
 							<select id="form3Example4cdg" class="form-select form-select-lg">
@@ -62,17 +81,22 @@
 								<option value="school1">School 1</option>
 								<option value="school2">School 2</option>
 								<option value="school3">School 3</option>
-								<!-- Add more schools as needed -->
+								<option value="other">Sekolah Lainnya</option> <!-- Opsi "Sekolah Lainnya" -->
 							</select>
 						</div>
-
-						<div class="d-flex justify-content-center">
-							<button type="button" class="btn btn-primary" style="width: 100%; height: 40px; border-radius: 25px;">DAFTAR</button>
+					
+						<div id="manualSchoolInput" style="display: none;"> <!-- Form input sekolah manual -->
+							<div class="form-outline mb-4">
+								<label class="form-label" for="manualSchool">Sekolah Manual</label>
+								<input type="text" id="manualSchool" class="form-control form-control-lg" placeholder="Inputkan Nama Sekolah" />
+							</div>
 						</div>
-
-						<p class="text-center text-muted mt-3 mb-0">Sudah Punya Akun? <a href="pmb.ulbi.ac.id"
-							class="fw-bold text-body">Login Disini</a></p>
-
+					
+						<div class="d-flex justify-content-center">
+							<button type="button" class="btn btn-primary" style="width: 100%; height: 40px; border-radius: 25px; background-color: #00277F;"><b>DAFTAR</b></button>
+						</div>
+					
+						<p class="text-center text-muted mt-3 mb-0">Sudah Punya Akun? <a href="pmb.ulbi.ac.id" class="fw-bold text-body">Login Disini</a></p>
 					</form>
 
 					</div>
@@ -83,6 +107,16 @@
 		</div>
 		</section>
 	  
+	<script>
+		document.getElementById('form3Example4cdg').addEventListener('change', function () {
+			var selectedOption = this.value;
+			if (selectedOption === 'other') {
+				document.getElementById('manualSchoolInput').style.display = 'block'; // Menampilkan input sekolah manual
+			} else {
+				document.getElementById('manualSchoolInput').style.display = 'none'; // Sembunyikan input sekolah manual
+			}
+		});
+	</script>
 
 	<script src="static/js/app.js"></script>
 
