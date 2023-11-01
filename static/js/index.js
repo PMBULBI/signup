@@ -1,11 +1,11 @@
-import { CihuyDataAPI } from "https://c-craftjs.github.io/simpelbi/api.js";
+// Import library dan js yang diperlukan
 import { UrlGetKotaSekolah, UrlGetProvinsiSekolah } from "./template/template.js";
 
 // Untuk Get All Data Kota Sekolah di Form
 // Mendapatkan referensi ke elemen dropdown
 const kotaDropdown = document.getElementById("kota-sekolah");
 // Mengambil data kota dari endpoint
-fetch('https://komarbe.ulbi.ac.id/wilayah-kota/get')
+fetch(UrlGetKotaSekolah)
   .then(response => response.json())
   .then(data => {
     if (data.success) {
@@ -32,33 +32,34 @@ fetch('https://komarbe.ulbi.ac.id/wilayah-kota/get')
 });
 
 // Untuk Get All Data Provinsi Sekolah di Form
-// function ProvinsiSekolah(data) {
-//     const selectElement = document.getElementById('provinsi-sekolah');
-//     // Kosongkan Isi Dropdown saat ini
-//     selectElement.innerHTML = "";
+// Mendapatkan referensi ke elemen dropdown
+const provinsiDropdown = document.getElementById("provinsi-sekolah");
+// Mengambil data kota dari endpoint
+fetch(UrlGetProvinsiSekolah)
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      const provinsiData = data.data;
 
-//     // Loop data yang diterima dari API
-//     data.forEach((item) => {
-//         const optionElement = document.createElement("option")
-//         optionElement.value = item.id_provinsi;
-//         optionElement.textContent = `${item.nama_provinsi} - ${item.id_provinsi}`;
-//         selectElement.appendChild(optionElement);
-//     });
-//     selectElement.addEventListener("change", function () {
-//         const selectedValue = this.value;
-//         // Lakukan sesuatu dengan nilai yang dipilih, misalnya tampilkan di console
-//         console.log("Nilai yang dipilih: ", selectedValue);
-//     })
-// }
-// CihuyDataAPI(UrlGetProvinsiSekolah, token, (error, response) => {
-//     if (error) {
-//         console.error("Terjadi kesalahan : ", error);
-//     } else {
-//         const data = response.data;
-//         console.log("Data yang diterima : ", data);
-//         ProvinsiSekolah(data)
-//     }
-// })
+      // Menghapus opsi yang sudah ada, kecuali opsi pertama
+      while (provinsiDropdown.length > 1) {
+        provinsiDropdown.remove(1);
+      }
+      // Menambahkan opsi kota ke dropdown
+      provinsiData.forEach(kota => {
+        const option = document.createElement("option");
+        option.value = kota.id_provinsi;
+        option.text = kota.nama_provinsi;
+        provinsiDropdown.appendChild(option);
+      });
+    } else {
+      // Menampilkan pesan kesalahan jika diperlukan
+      console.error("Gagal mengambil data kota.");
+    }
+  })
+  .catch(error => {
+    console.error("Terjadi kesalahan dalam mengambil data: " + error);
+});
 
 // Untuk Input Sekolah yang Belum Terdaftar
 document.getElementById('form3Example4cdg').addEventListener('change', function () {
