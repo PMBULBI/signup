@@ -1,5 +1,5 @@
 import { CihuyDataAPI } from "https://c-craftjs.github.io/simpelbi/api.js";
-import { UrlGetKotaSekolah } from "./template/template.js";
+import { UrlGetKotaSekolah, UrlGetProvinsiSekolah } from "./template/template.js";
 
 // Untuk Get All Data Kota Sekolah di Form
 function KotaSekolah(data) {
@@ -20,13 +20,42 @@ function KotaSekolah(data) {
         console.log("Nilai yang dipilih: ", selectedValue);
     })
 }
-CihuyDataAPI(UrlGetKotaSekolah, (error, response) => {
+CihuyDataAPI(UrlGetKotaSekolah, token, (error, response) => {
     if (error) {
         console.error("Terjadi kesalahan : ", error);
     } else {
         const data = response.data;
         console.log("Data yang diterima : ", data);
         KotaSekolah(data)
+    }
+})
+
+// Untuk Get All Data Provinsi Sekolah di Form
+function ProvinsiSekolah(data) {
+    const selectElement = document.getElementById('provinsi-sekolah');
+    // Kosongkan Isi Dropdown saat ini
+    selectElement.innerHTML = "";
+
+    // Loop data yang diterima dari API
+    data.forEach((item) => {
+        const optionElement = document.createElement("option")
+        optionElement.value = item.id_provinsi;
+        optionElement.textContent = `${item.nama_provinsi} - ${item.id_provinsi}`;
+        selectElement.appendChild(optionElement);
+    });
+    selectElement.addEventListener("change", function () {
+        const selectedValue = this.value;
+        // Lakukan sesuatu dengan nilai yang dipilih, misalnya tampilkan di console
+        console.log("Nilai yang dipilih: ", selectedValue);
+    })
+}
+CihuyDataAPI(UrlGetProvinsiSekolah, token, (error, response) => {
+    if (error) {
+        console.error("Terjadi kesalahan : ", error);
+    } else {
+        const data = response.data;
+        console.log("Data yang diterima : ", data);
+        ProvinsiSekolah(data)
     }
 })
 
