@@ -1,5 +1,35 @@
 // Import library dan js yang diperlukan
-import { UrlGetKotaSekolah, UrlGetProvinsiSekolah } from "./template/template.js";
+import { UrlGetKotaSekolah, UrlGetProvinsiSekolah, UrlGetSekolah } from "./template/template.js";
+
+// Untuk Get All Data Kota Sekolah di Form
+// Mendapatkan referensi ke elemen dropdown
+const sekolahDropdown = document.getElementById("AsalSekolah");
+// Mengambil data kota dari endpoint
+fetch(UrlGetSekolah)
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      const sekolahData = data.data;
+
+      // Menghapus opsi yang sudah ada, kecuali opsi pertama
+      while (sekolahDropdown.length > 1) {
+        sekolahDropdown.remove(1);
+      }
+      // Menambahkan opsi kota ke dropdown
+      sekolahData.forEach(kota => {
+        const option = document.createElement("option");
+        option.value = kota.id_kota;
+        option.text = kota.nama_kota;
+        sekolahDropdown.appendChild(option);
+      });
+    } else {
+      // Menampilkan pesan kesalahan jika diperlukan
+      console.error("Gagal mengambil data kota.");
+    }
+  })
+  .catch(error => {
+    console.error("Terjadi kesalahan dalam mengambil data: " + error);
+});
 
 // Untuk Get All Data Kota Sekolah di Form
 // Mendapatkan referensi ke elemen dropdown
