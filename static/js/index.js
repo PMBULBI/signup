@@ -61,6 +61,59 @@ fetch(UrlGetProvinsiSekolah)
     console.error("Terjadi kesalahan dalam mengambil data: " + error);
 });
 
+// Untuk Melakukan POST Pendaftar Akun
+// Simpan referensi ke elemen-elemen formulir
+const namaLengkapInput = document.getElementById("NamaLengkap");
+const asalSekolahInput = document.getElementById("AsalSekolah");
+const emailInput = document.getElementById("Email");
+const noHandphoneInput = document.getElementById("NoHandphone");
+const provinsiSekolahInput = document.getElementById("provinsi-sekolah");
+const kotaSekolahInput = document.getElementById("kota-sekolah");
+
+// Menyimpan referensi ke tombol "DAFTAR"
+const daftarButton = document.querySelector("button[type='button']");
+
+// Menambahkan event listener untuk tombol "DAFTAR"
+daftarButton.addEventListener("click", () => {
+  // Mengambil nilai dari elemen formulir
+  const namaMhs = namaLengkapInput.value;
+  const asalSekolah = asalSekolahInput.value;
+  const emailMhs = emailInput.value;
+  const hpMhs = noHandphoneInput.value;
+  const provinsiSekolah = provinsiSekolahInput.value;
+  const kotaSekolah = kotaSekolahInput.value;
+  const usernameAdmin = "rofi"; // Gantilah sesuai kebutuhan
+
+  // Membuat objek data yang akan dikirim
+  const data = {
+    nama_mhs: namaMhs,
+    asal_sekolah: asalSekolah,
+    email_mhs: emailMhs,
+    hp_mhs: hpMhs,
+    provinsi_sekolah: provinsiSekolah,
+    kota_sekolah: kotaSekolah,
+    username_admin: usernameAdmin,
+  };
+
+  // Mengirim permintaan POST ke endpoint
+  fetch("https://komarbe.ulbi.ac.id/daftar", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      // Handle respons dari server jika diperlukan
+      console.log(responseJson);
+    })
+    .catch((error) => {
+      // Menampilkan pesan kesalahan jika terjadi masalah
+      console.error("Terjadi kesalahan: " + error);
+    });
+});
+
 // Untuk Input Sekolah yang Belum Terdaftar
 document.getElementById('form3Example4cdg').addEventListener('change', function () {
     var selectedOption = this.value;
