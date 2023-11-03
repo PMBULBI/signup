@@ -1,6 +1,27 @@
 // Import library dan js yang diperlukan
 import { UrlGetKotaSekolah, UrlGetProvinsiSekolah, UrlGetSekolah } from "./template/template.js";
 
+// Untuk Get Data Sekolah yang Ada di Database
+function getDataSekolah() {
+    // Ambil elemen select dan nilai yang dipilih
+    const selectElement = document.getElementById("AsalSekolah");
+    const selectedValue = selectElement.value;
+
+    // Siapkan body permintaan
+    const requestBody = {
+        "nama_sekolah" : selectedValue
+    };
+
+    // Konfigurasi opsi untuk permintaan POST
+    const requestOptions = {
+        method : 'POST',
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        body : JSON.stringify(requestBody)
+    };
+}
+
 // Untuk Get All Data Kota Sekolah di Form
 // Mendapatkan referensi ke elemen dropdown
 const sekolahDropdown = document.getElementById("AsalSekolah");
