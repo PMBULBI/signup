@@ -1,5 +1,5 @@
 // Import library dan js yang diperlukan
-import { UrlGetKotaSekolah, UrlGetProvinsiSekolah, UrlGetSekolah } from "./template/template.js";
+import { UrlGetKotaSekolah, UrlGetProvinsiSekolah } from "./template/template.js";
 
 // Untuk Get Data Sekolah yang Ada di Database
 function getDataSekolah() {
