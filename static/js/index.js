@@ -7,32 +7,42 @@ function getDataSekolah() {
     const selectElement = document.getElementById("AsalSekolah");
     const selectedValue = selectElement.value;
 
-    // Siapkan body permintaan
-    const requestBody = {
-        "nama_sekolah" : selectedValue
-    };
+    if (selectedValue === "other") {
+        // Siapkan body permintaan
+        const requestBody = {
+            "nama_sekolah": selectedValue
+        };
 
-    // Konfigurasi opsi untuk permintaan POST
-    const requestOptions = {
-        method : 'POST',
-        headers : {
-            'Content-Type' : 'application/json'
-        },
-        body : JSON.stringify(requestBody)
-    };
+        // Konfigurasi opsi untuk permintaan POST
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody)
+        };
 
-    // Lakukan permintaan POST ke endpoint
-    fetch('https://komarbe.ulbi.ac.id/sekolah', requestOptions)
-        .then(response => response.json())
-        .then(data => {
-            // Lakukan sesuatu dengan data yang diterima dari server
-            console.log(data);
-        })
-        .catch(error => {
-            // Tangani kesalahan jika ada
-            console.error('Terjadi kesalahan:', error);
-    });
+        // Lakukan permintaan POST ke endpoint
+        fetch('https://komarbe.ulbi.ac.id/sekolah', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                // Hapus semua opsi sebelum menambahkan yang baru
+                selectElement.innerHTML = "";
+                // Tambahkan opsi-opsi baru berdasarkan data yang diterima
+                data.forEach(school => {
+                    const option = document.createElement("option");
+                    option.value = school.id; // Atur nilai opsi sesuai dengan id sekolah
+                    option.text = school.nama_sekolah; // Atur teks opsi sesuai dengan nama sekolah
+                    selectElement.appendChild(option);
+                });
+            })
+            .catch(error => {
+                // Tangani kesalahan jika ada
+                console.error('Terjadi kesalahan:', error);
+        });
+    }
 }
+
 // Memanggil fungsi getDataFromEndpoint saat select diubah
 document.getElementById("AsalSekolah").addEventListener("change", getDataSekolah);
 
