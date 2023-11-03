@@ -174,7 +174,7 @@ daftarButton.addEventListener("click", () => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Data Karyawan Gagal Diperbarui!',
+            text: 'Akun Gagal Dibuat!',
           });
           // Menampilkan pesan kesalahan jika terjadi masalah
           console.error("Terjadi kesalahan: " + error);
