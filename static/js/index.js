@@ -160,15 +160,24 @@ daftarButton.addEventListener("click", () => {
 });
 
 // Untuk Input Sekolah yang Belum Terdaftar
-document.getElementById('AsalSekolah').addEventListener('change', function () {
-    var selectedOption = this.value;
-    if (selectedOption === 'other') {
-        document.getElementById('manualSchoolInput').style.display = 'block'; // Menampilkan input sekolah manual
-        document.getElementById('manualCityInput').style.display = 'block'; // Menampilkan input sekolah manual
-        document.getElementById('manualProvinceInput').style.display = 'block'; // Menampilkan input sekolah manual
-    } else {
-        document.getElementById('manualSchoolInput').style.display = 'none'; // Sembunyikan input sekolah manual
-        document.getElementById('manualCityInput').style.display = 'none'; // Sembunyikan input sekolah manual
-        document.getElementById('manualProvinceInput').style.display = 'none'; // Sembunyikan input sekolah manual
-    }
+const checkbox = document.getElementById("flexCheckDefault");
+
+// Mendapatkan elemen-elemen inputan sekolah lainnya
+const manualSchoolInput = document.getElementById("manualSchoolInput");
+const manualCityInput = document.getElementById("manualCityInput");
+const manualProvinceInput = document.getElementById("manualProvinceInput");
+
+// Menambahkan event listener untuk perubahan status checkbox
+checkbox.addEventListener("change", function() {
+  if (checkbox.checked) {
+    // Jika checkbox diceklist, tampilkan inputan sekolah lainnya
+    manualSchoolInput.style.display = "block";
+    manualCityInput.style.display = "block";
+    manualProvinceInput.style.display = "block";
+  } else {
+    // Jika checkbox tidak diceklist, sembunyikan inputan sekolah lainnya
+    manualSchoolInput.style.display = "none";
+    manualCityInput.style.display = "none";
+    manualProvinceInput.style.display = "none";
+  }
 });
