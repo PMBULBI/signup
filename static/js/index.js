@@ -1,50 +1,44 @@
 // Import library dan js yang diperlukan
-import { UrlGetKotaSekolah, UrlGetProvinsiSekolah } from "./template/template.js";
+import { UrlGetKotaSekolah, UrlGetProvinsiSekolah, UrlGetSekolah } from "./template/template.js";
+import { CihuyId } from "https://c-craftjs.github.io/element/element.js";
+import { CihuyPost } from "https://c-craftjs.github.io/api/api.js";
 
-// Untuk Get Data Sekolah yang Ada di Database
-function getDataSekolah() {
-    // Ambil elemen select dan nilai yang dipilih
-    const selectElement = document.getElementById("AsalSekolah");
-    const selectedValue = selectElement.value;
+// const dataSekolah = [];
+// const asalsekolah = CihuyId('AsalSekolah');
+const asalsekolahsuggestion = CihuyId('AsalSekolah-suggestions')
+const inputSekolah = document.getElementById("AsalSekolah");
 
-    if (selectedValue === "other") {
-        // Siapkan body permintaan
-        const requestBody = {
-            "nama_sekolah": selectedValue
-        };
+inputSekolah.addEventListener("input", async()=>{
+  const asalSekolahValue = inputSekolah.value;
+  const body = {
+    nama_sekolah: asalSekolahValue
+  };
+  try {
+    const data = await CihuyPost(UrlGetSekolah, body);
+    console.log("Data yang diterima setelah POST:", data);
+    asalsekolahsuggestion.textContent = JSON.stringify(data);
+    const schoolNames = data.data.map(sekolah => sekolah.nama_sekolah);
+    asalsekolahsuggestion.innerHTML = "";
+    schoolNames.forEach(schoolNames=>{
+      const elementSekolah = document.createElement("div");
+      elementSekolah.className = "sekolah"
+      elementSekolah.textContent = schoolNames;
+      elementSekolah.addEventListener("click", ()=>{
+        asalSekolahInput.value = schoolNames;
+        asalsekolahsuggestion.innerHTML = "";
+      })
+      asalsekolahsuggestion.appendChild(elementSekolah);
+      if (schoolNames.length > 0) {
+        asalsekolahsuggestion.style.display = "block";
+      } else {
+        asalsekolahsuggestion.style.display = "none";
+      }
+    })
+  } catch (error) {
+    console.error("Terjadi kesalahan saat melakukan POST:", error);
+  }
+})
 
-        // Konfigurasi opsi untuk permintaan POST
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(requestBody)
-        };
-
-        // Lakukan permintaan POST ke endpoint
-        fetch('https://komarbe.ulbi.ac.id/sekolah', requestOptions)
-            .then(response => response.json())
-            .then(data => {
-                // Hapus semua opsi sebelum menambahkan yang baru
-                selectElement.innerHTML = "";
-                // Tambahkan opsi-opsi baru berdasarkan data yang diterima
-                data.forEach(school => {
-                    const option = document.createElement("option");
-                    option.value = school.id; // Atur nilai opsi sesuai dengan id sekolah
-                    option.text = school.nama_sekolah; // Atur teks opsi sesuai dengan nama sekolah
-                    selectElement.appendChild(option);
-                });
-            })
-            .catch(error => {
-                // Tangani kesalahan jika ada
-                console.error('Terjadi kesalahan:', error);
-        });
-    }
-}
-
-// Memanggil fungsi getDataFromEndpoint saat select diubah
-document.getElementById("AsalSekolah").addEventListener("change", getDataSekolah);
 
 // Untuk Get All Data Kota Sekolah di Form
 // Mendapatkan referensi ke elemen dropdown
@@ -205,3 +199,5 @@ checkbox.addEventListener("change", function() {
     manualProvinceInput.style.display = "none";
   }
 });
+
+
