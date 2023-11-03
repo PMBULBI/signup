@@ -167,7 +167,7 @@ daftarButton.addEventListener("click", () => {
             showConfirmButton: false,
             timer: 1500
           }).then(() => {
-            window.location.href = 'pmb.ulbi.ac.id';
+            window.location.href = 'https://pmb.ulbi.ac.id';
           })
           console.log(responseJson);
         })
