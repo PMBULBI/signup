@@ -20,37 +20,21 @@ function getDataSekolah() {
         },
         body : JSON.stringify(requestBody)
     };
+
+    // Lakukan permintaan POST ke endpoint
+    fetch('https://komarbe.ulbi.ac.id/sekolah', requestOptions)
+        .then(response => response.json())
+        .then(data => {
+            // Lakukan sesuatu dengan data yang diterima dari server
+            console.log(data);
+        })
+        .catch(error => {
+            // Tangani kesalahan jika ada
+            console.error('Terjadi kesalahan:', error);
+    });
 }
-
-// Untuk Get All Data Kota Sekolah di Form
-// Mendapatkan referensi ke elemen dropdown
-const sekolahDropdown = document.getElementById("AsalSekolah");
-// Mengambil data kota dari endpoint
-fetch(UrlGetSekolah)
-  .then(response => response.json())
-  .then(data => {
-    if (data.success) {
-      const sekolahData = data.data;
-
-      // Menghapus opsi yang sudah ada, kecuali opsi pertama
-      while (sekolahDropdown.length > 1) {
-        sekolahDropdown.remove(1);
-      }
-      // Menambahkan opsi kota ke dropdown
-      sekolahData.forEach(kota => {
-        const option = document.createElement("option");
-        option.value = kota.id_kota;
-        option.text = kota.nama_kota;
-        sekolahDropdown.appendChild(option);
-      });
-    } else {
-      // Menampilkan pesan kesalahan jika diperlukan
-      console.error("Gagal mengambil data kota.");
-    }
-  })
-  .catch(error => {
-    console.error("Terjadi kesalahan dalam mengambil data: " + error);
-});
+// Memanggil fungsi getDataFromEndpoint saat select diubah
+document.getElementById("AsalSekolah").addEventListener("change", getDataSekolah);
 
 // Untuk Get All Data Kota Sekolah di Form
 // Mendapatkan referensi ke elemen dropdown
