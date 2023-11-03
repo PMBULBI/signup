@@ -160,7 +160,13 @@ daftarButton.addEventListener("click", () => {
         .then((response) => response.json())
         .then((responseJson) => {
           // Menampilkan SweetAlert sukses
-          Swal.fire("Sukses", "Akun berhasil dibuat!", "success");
+          Swal.fire({
+            icon: 'success',
+            title: 'Sukses!',
+            text: 'Akun Berhasil Dibuat',
+            showConfirmButton: false,
+            timer: 1500
+          })
           console.log(responseJson);
         })
         .catch((error) => {
