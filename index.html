@@ -77,7 +77,9 @@
 						<!-- Input Asal Sekolah -->
 						<div class="form-outline mb-4">
 							<label class="form-label" for="AsalSekolah">Asal Sekolah</label>
-							<input type="text" id="AsalSekolah" class="form-control form-control-lg" placeholder="Masukkan Asal Sekolah" />
+							<select id="AsalSekolah" class="form-select">
+								<option disabled value="">Pilih Asal Sekolah</option>
+							</select>
 						</div>
 
 						<!-- Checkbox untuk menampilkan inputan sekolah lainnya -->
@@ -96,20 +98,20 @@
 							</div>
 						</div>
 
-						<div id="manualCityInput" style="display: none;">
-							<div class="form-outline mb-4">
-								<label class="form-label" for="manualCity">Kota Asal Sekolah</label>
-								<select id="kota-sekolah" class="form-select form-select-lg" >
-									<option disabled value="">Pilih Kota Asal Sekolah</option>
-								</select>
-							</div>
-						</div>
-
 						<div id="manualProvinceInput" style="display: none;">
 							<div class="form-outline mb-4">
 								<label class="form-label" for="manualProvince">Provinsi Asal Sekolah</label>
 								<select id="provinsi-sekolah" class="form-select form-select-lg" >
 									<option disabled value="">Pilih Provinsi Asal Sekolah</option>
+								</select>
+							</div>
+						</div>
+
+						<div id="manualCityInput" style="display: none;">
+							<div class="form-outline mb-4">
+								<label class="form-label" for="manualCity">Kota Asal Sekolah</label>
+								<select id="kota-sekolah" class="form-select form-select-lg" >
+									<option disabled value="">Pilih Kota Asal Sekolah</option>
 								</select>
 							</div>
 						</div>
@@ -134,10 +136,12 @@
 	<!-- Footer Start -->
 	<footer class="py-3" style="background-color: #EA5329;">
 		<p class="text-center mt-3" style="color: white;"><b>Marketing And Admission Directorate </b>Copyright©2023</p>
-	  </footer>
+	</footer>
 	<!-- Footer End -->
+
 	<script src="static/js/index.js" type="module"></script>
 	<script src="static/js/app.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 
