@@ -166,6 +166,8 @@ daftarButton.addEventListener("click", () => {
             text: 'Akun Berhasil Dibuat',
             showConfirmButton: false,
             timer: 1500
+          }).then(() => {
+            window.location.href = 'pmb.ulbi.ac.id';
           })
           console.log(responseJson);
         })
