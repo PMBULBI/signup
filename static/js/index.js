@@ -170,6 +170,12 @@ daftarButton.addEventListener("click", () => {
           console.log(responseJson);
         })
         .catch((error) => {
+          // Menampilkan Data Alert Error
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Data Karyawan Gagal Diperbarui!',
+          });
           // Menampilkan pesan kesalahan jika terjadi masalah
           console.error("Terjadi kesalahan: " + error);
         });
