@@ -118,7 +118,6 @@ const kotaSekolahInput = document.getElementById("kota-sekolah");
 // Menyimpan referensi ke tombol "DAFTAR"
 const daftarButton = document.querySelector("button[type='button']");
 
-// Menambahkan event listener untuk tombol "DAFTAR"
 daftarButton.addEventListener("click", () => {
   // Mengambil nilai dari elemen formulir
   const namaMhs = namaLengkapInput.value;
@@ -140,33 +139,44 @@ daftarButton.addEventListener("click", () => {
     username_admin: usernameAdmin,
   };
 
-  // Mengirim permintaan POST ke endpoint
-  fetch("https://komarbe.ulbi.ac.id/daftar", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => response.json())
-    .then((responseJson) => {
-      // Handle respons dari server jika diperlukan
-      console.log(responseJson);
-    })
-    .catch((error) => {
-      // Menampilkan pesan kesalahan jika terjadi masalah
-      console.error("Terjadi kesalahan: " + error);
-    });
+  // Menampilkan SweetAlert konfirmasi
+  Swal.fire({
+    title: "Konfirmasi Pembuatan Akun",
+    text: "Apakah Anda yakin ingin membuat akun?",
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonText: "Ya, Daftar",
+    cancelButtonText: "Batal",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Mengirim permintaan POST ke endpoint
+      fetch("https://komarbe.ulbi.ac.id/daftar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((responseJson) => {
+          // Menampilkan SweetAlert sukses
+          Swal.fire("Sukses", "Akun berhasil dibuat!", "success");
+          console.log(responseJson);
+        })
+        .catch((error) => {
+          // Menampilkan pesan kesalahan jika terjadi masalah
+          console.error("Terjadi kesalahan: " + error);
+        });
+    }
+  });
 });
 
 // Untuk Input Sekolah yang Belum Terdaftar
 const checkbox = document.getElementById("flexCheckDefault");
-
 // Mendapatkan elemen-elemen inputan sekolah lainnya
 const manualSchoolInput = document.getElementById("manualSchoolInput");
 const manualCityInput = document.getElementById("manualCityInput");
 const manualProvinceInput = document.getElementById("manualProvinceInput");
-
 // Menambahkan event listener untuk perubahan status checkbox
 checkbox.addEventListener("change", function() {
   if (checkbox.checked) {
