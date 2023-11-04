@@ -1,12 +1,14 @@
 // Import library dan js yang diperlukan
 import { UrlGetKotaSekolah, UrlGetProvinsiSekolah, UrlGetSekolah } from "./template/template.js";
 import { CihuyId } from "https://c-craftjs.github.io/element/element.js";
-import { CihuyPost } from "https://c-craftjs.github.io/api/api.js";
+import { CihuyPost, CihuyGet } from "https://c-craftjs.github.io/api/api.js";
 
 // Untuk Get Data Sekolah ke Inputan with Suggestions
+// Membuat Variabel untuk get id element
 const asalsekolahsuggestion = CihuyId('AsalSekolah-suggestions')
 const inputSekolah = document.getElementById("AsalSekolah");
 
+// Membuat Listener untuk suggestions
 inputSekolah.addEventListener("input", async()=>{
   const asalSekolahValue = inputSekolah.value;
   const body = {
@@ -40,34 +42,42 @@ inputSekolah.addEventListener("input", async()=>{
 
 
 // Untuk Get All Data Kota Sekolah di Form
-// Mendapatkan referensi ke elemen dropdown
-const kotaDropdown = document.getElementById("kota-sekolah");
-// Mengambil data kota dari endpoint
-fetch(UrlGetKotaSekolah)
-  .then(response => response.json())
-  .then(data => {
-    if (data.success) {
-      const kotaData = data.data;
+// Membuat Variabel untuk get id element
+const provinsiAsalsuggestion = CihuyId('ProvinsiSekolah-suggestions')
+const inputProvinsiAsal = document.getElementById("provinsi-sekolah");
 
-      // Menghapus opsi yang sudah ada, kecuali opsi pertama
-      while (kotaDropdown.length > 1) {
-        kotaDropdown.remove(1);
+// Membuat Listener untuk suggestions
+inputProvinsiAsal.addEventListener("input", async()=>{
+  const provinsiAsalValue = inputProvinsiAsal.value;
+  const body = {
+    nama_provinsi: provinsiAsalValue
+  };
+  try {
+    const data = await CihuyGet(UrlGetProvinsiSekolah, body);
+    // Untuk Cek di console
+    console.log("Data yang diterima setelah GET:", data);
+    provinsiAsalsuggestion.textContent = JSON.stringify(data);
+    const provinceNames = data.data.map(provinsi => provinsi.nama_provinsi);
+    provinsiAsalsuggestion.innerHTML = "";
+    provinceNames.forEach(provinceNames=>{
+      const elementProvinsi = document.createElement("div");
+      elementProvinsi.className = "provinsi"
+      elementProvinsi.textContent = provinceNames;
+      elementProvinsi.addEventListener("click", ()=>{
+        provinsiSekolahInput.value = provinceNames;
+        provinsiAsalsuggestion.innerHTML = "";
+      })
+      provinsiAsalsuggestion.appendChild(elementProvinsi);
+      if (provinceNames.length > 0) {
+        provinsiAsalsuggestion.style.display = "block";
+      } else {
+        provinsiAsalsuggestion.style.display = "none";
       }
-      // Menambahkan opsi kota ke dropdown
-      kotaData.forEach(kota => {
-        const option = document.createElement("option");
-        option.value = kota.id_kota;
-        option.text = kota.nama_kota;
-        kotaDropdown.appendChild(option);
-      });
-    } else {
-      // Menampilkan pesan kesalahan jika diperlukan
-      console.error("Gagal mengambil data kota.");
-    }
-  })
-  .catch(error => {
-    console.error("Terjadi kesalahan dalam mengambil data: " + error);
-});
+    })
+  } catch (error) {
+    console.error("Terjadi kesalahan saat melakukan GET:", error);
+  }
+})
 
 // Untuk Get All Data Provinsi Sekolah di Form
 // Mendapatkan referensi ke elemen dropdown
