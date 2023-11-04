@@ -3,8 +3,7 @@ import { UrlGetKotaSekolah, UrlGetProvinsiSekolah, UrlGetSekolah } from "./templ
 import { CihuyId } from "https://c-craftjs.github.io/element/element.js";
 import { CihuyPost } from "https://c-craftjs.github.io/api/api.js";
 
-// const dataSekolah = [];
-// const asalsekolah = CihuyId('AsalSekolah');
+// Untuk Get Data Sekolah ke Inputan with Suggestions
 const asalsekolahsuggestion = CihuyId('AsalSekolah-suggestions')
 const inputSekolah = document.getElementById("AsalSekolah");
 

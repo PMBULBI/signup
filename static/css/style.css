@@ -1,0 +1,20 @@
+.suggestions {
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: #fff;
+    display: none; /* Sembunyikan saran awalnya */
+  }
+  
+  .suggestions .school {
+    margin: 5px 0;
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid #ddd;
+    background-color: #f5f5f5;
+    transition: background-color 0.3s;
+  }
+  
+  .suggestions .school:hover {
+    background-color: #e0e0e0;
+  }
