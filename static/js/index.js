@@ -41,7 +41,7 @@ inputSekolah.addEventListener("input", async()=>{
 })
 
 
-// Untuk Get All Data Kota Sekolah di Form
+// Untuk Get All Data Provinsi Sekolah di Form
 // Membuat Variabel untuk get id element
 const provinsiAsalsuggestion = CihuyId('ProvinsiSekolah-suggestions')
 const inputProvinsiAsal = document.getElementById("provinsi-sekolah");
@@ -79,7 +79,7 @@ inputProvinsiAsal.addEventListener("input", async()=>{
   }
 })
 
-// Untuk Get All Data Provinsi Sekolah di Form
+// Untuk Get All Data Kota Sekolah di Form
 // Membuat Variabel untuk get id element
 const kotaAsalsuggestion = CihuyId('KotaSekolah-suggestions')
 const inputKotaAsal = document.getElementById("kota-sekolah");
