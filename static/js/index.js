@@ -80,34 +80,42 @@ inputProvinsiAsal.addEventListener("input", async()=>{
 })
 
 // Untuk Get All Data Provinsi Sekolah di Form
-// Mendapatkan referensi ke elemen dropdown
-const provinsiDropdown = document.getElementById("provinsi-sekolah");
-// Mengambil data kota dari endpoint
-fetch(UrlGetProvinsiSekolah)
-  .then(response => response.json())
-  .then(data => {
-    if (data.success) {
-      const provinsiData = data.data;
+// Membuat Variabel untuk get id element
+const kotaAsalsuggestion = CihuyId('KotaSekolah-suggestions')
+const inputKotaAsal = document.getElementById("kota-sekolah");
 
-      // Menghapus opsi yang sudah ada, kecuali opsi pertama
-      while (provinsiDropdown.length > 1) {
-        provinsiDropdown.remove(1);
+// Membuat Listener untuk suggestions
+inputKotaAsal.addEventListener("input", async()=>{
+  const kotaAsalValue = inputKotaAsal.value;
+  const body = {
+    nama_kota: kotaAsalValue
+  };
+  try {
+    const data = await CihuyGet(UrlGetKotaSekolah, body);
+    // Untuk Cek di console
+    console.log("Data yang diterima setelah GET:", data);
+    kotaAsalsuggestion.textContent = JSON.stringify(data);
+    const cityNames = data.data.map(kota => kota.nama_kota);
+    kotaAsalsuggestion.innerHTML = "";
+    cityNames.forEach(cityNames=>{
+      const elementKota = document.createElement("div");
+      elementKota.className = "kota"
+      elementKota.textContent = cityNames;
+      elementKota.addEventListener("click", ()=>{
+        kotaSekolahInput.value = cityNames;
+        kotaAsalsuggestion.innerHTML = "";
+      })
+      kotaAsalsuggestion.appendChild(elementKota);
+      if (cityNames.length > 0) {
+        kotaAsalsuggestion.style.display = "block";
+      } else {
+        kotaAsalsuggestion.style.display = "none";
       }
-      // Menambahkan opsi kota ke dropdown
-      provinsiData.forEach(kota => {
-        const option = document.createElement("option");
-        option.value = kota.id_provinsi;
-        option.text = kota.nama_provinsi;
-        provinsiDropdown.appendChild(option);
-      });
-    } else {
-      // Menampilkan pesan kesalahan jika diperlukan
-      console.error("Gagal mengambil data kota.");
-    }
-  })
-  .catch(error => {
-    console.error("Terjadi kesalahan dalam mengambil data: " + error);
-});
+    })
+  } catch (error) {
+    console.error("Terjadi kesalahan saat melakukan GET:", error);
+  }
+})
 
 // Untuk Melakukan POST Pendaftar Akun
 // Simpan referensi ke elemen-elemen formulir
