@@ -126,6 +126,7 @@ const emailInput = document.getElementById("Email");
 const noHandphoneInput = document.getElementById("NoHandphone");
 const provinsiSekolahInput = document.getElementById("provinsi-sekolah");
 const kotaSekolahInput = document.getElementById("kota-sekolah");
+const checkbox = document.getElementById("flexCheckDefault");
 
 // Menyimpan referensi ke tombol "DAFTAR"
 const daftarButton = document.querySelector("button[type='button']");
