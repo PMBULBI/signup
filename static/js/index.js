@@ -133,19 +133,24 @@ const daftarButton = document.querySelector("button[type='button']");
 daftarButton.addEventListener("click", () => {
   // Mengambil nilai dari elemen formulir
   const namaMhs = namaLengkapInput.value;
-  const asalSekolah = asalSekolahInput.value;
-  const asalSekolahManual = asalSekolahInputManual.value;
   const emailMhs = emailInput.value;
   const hpMhs = noHandphoneInput.value;
   const provinsiSekolah = provinsiSekolahInput.value;
   const kotaSekolah = kotaSekolahInput.value;
   const usernameAdmin = ""; // Gantilah sesuai kebutuhan
 
+  let asalSekolah = ''; // Untuk inputan asal sekolah
+
+  // Conditional untuk asal sekolah
+  if (checkbox.checked) {
+    asalSekolah = asalSekolahInputManual.value; // Jika checkbox diceklist, gunakan data dari input sekolah manual
+  } else {
+    asalSekolah = asalSekolahInput.value; // Gunakan data dari input asal sekolah
+  }
   // Membuat objek data yang akan dikirim
   const data = {
     nama_mhs: namaMhs,
     asal_sekolah: asalSekolah,
-    asal_sekolah: asalSekolahManual,
     email_mhs: emailMhs,
     hp_mhs: hpMhs,
     provinsi_sekolah: provinsiSekolah,
