@@ -13,6 +13,7 @@ checkbox.addEventListener("change", function() {
     manualCityInput.style.display = "block";
     manualProvinceInput.style.display = "block";
     asalSekolahReadonly.readOnly = true;
+    asalSekolahReadonly.value = ""; // Hapus nilai dari input asal sekolah
   } else {
     // Jika checkbox tidak diceklist, sembunyikan inputan sekolah lainnya
     manualSchoolInput.style.display = "none";
