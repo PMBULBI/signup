@@ -121,6 +121,7 @@ inputKotaAsal.addEventListener("input", async()=>{
 // Simpan referensi ke elemen-elemen formulir
 const namaLengkapInput = document.getElementById("NamaLengkap");
 const asalSekolahInput = document.getElementById("AsalSekolah");
+const asalSekolahInputManual = document.getElementById("manualSchool");
 const emailInput = document.getElementById("Email");
 const noHandphoneInput = document.getElementById("NoHandphone");
 const provinsiSekolahInput = document.getElementById("provinsi-sekolah");
@@ -133,16 +134,18 @@ daftarButton.addEventListener("click", () => {
   // Mengambil nilai dari elemen formulir
   const namaMhs = namaLengkapInput.value;
   const asalSekolah = asalSekolahInput.value;
+  const asalSekolahManual = asalSekolahInputManual.value;
   const emailMhs = emailInput.value;
   const hpMhs = noHandphoneInput.value;
   const provinsiSekolah = provinsiSekolahInput.value;
   const kotaSekolah = kotaSekolahInput.value;
-  const usernameAdmin = "rofi"; // Gantilah sesuai kebutuhan
+  const usernameAdmin = ""; // Gantilah sesuai kebutuhan
 
   // Membuat objek data yang akan dikirim
   const data = {
     nama_mhs: namaMhs,
     asal_sekolah: asalSekolah,
+    asal_sekolah: asalSekolahManual,
     email_mhs: emailMhs,
     hp_mhs: hpMhs,
     provinsi_sekolah: provinsiSekolah,
