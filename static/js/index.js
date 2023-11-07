@@ -40,7 +40,6 @@ inputSekolah.addEventListener("input", async()=>{
   }
 })
 
-
 // Untuk Get All Data Provinsi Sekolah di Form
 // Membuat Variabel untuk get id element
 const provinsiAsalsuggestion = CihuyId('ProvinsiSekolah-suggestions')
@@ -48,12 +47,8 @@ const inputProvinsiAsal = document.getElementById("provinsi-sekolah");
 
 // Membuat Listener untuk suggestions
 inputProvinsiAsal.addEventListener("input", async()=>{
-  const provinsiAsalValue = inputProvinsiAsal.value;
-  const body = {
-    nama_provinsi: provinsiAsalValue
-  };
   try {
-    const data = await CihuyGet(UrlGetProvinsiSekolah, body);
+    const data = await CihuyGet(UrlGetProvinsiSekolah);
     // Untuk Cek di console
     console.log("Data yang diterima setelah GET:", data);
     provinsiAsalsuggestion.textContent = JSON.stringify(data);
@@ -86,12 +81,8 @@ const inputKotaAsal = document.getElementById("kota-sekolah");
 
 // Membuat Listener untuk suggestions
 inputKotaAsal.addEventListener("input", async()=>{
-  const kotaAsalValue = inputKotaAsal.value;
-  const body = {
-    nama_kota: kotaAsalValue
-  };
   try {
-    const data = await CihuyGet(UrlGetKotaSekolah, body);
+    const data = await CihuyGet(UrlGetKotaSekolah);
     // Untuk Cek di console
     console.log("Data yang diterima setelah GET:", data);
     kotaAsalsuggestion.textContent = JSON.stringify(data);
