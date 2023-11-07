@@ -40,35 +40,40 @@ inputSekolah.addEventListener("input", async()=>{
   }
 })
 
-// Untuk Get All Data Provinsi Sekolah di Form
-// Membuat Variabel untuk get id element
-const provinsiAsalsuggestion = CihuyId('ProvinsiSekolah-suggestions')
+/// Membuat Variabel untuk get id element
+const provinsiAsalsuggestion = document.getElementById('ProvinsiSekolah-suggestions'); // Perubahan di sini
 const inputProvinsiAsal = document.getElementById("provinsi-sekolah");
 
 // Membuat Listener untuk suggestions
 inputProvinsiAsal.addEventListener("input", async()=>{
   try {
-    const data = await CihuyGet(UrlGetProvinsiSekolah);
-    // Untuk Cek di console
-    console.log("Data yang diterima setelah GET:", data);
-    provinsiAsalsuggestion.textContent = JSON.stringify(data);
-    const provinceNames = data.data.map(provinsi => provinsi.nama_provinsi);
-    provinsiAsalsuggestion.innerHTML = "";
-    provinceNames.forEach(provinceNames=>{
-      const elementProvinsi = document.createElement("div");
-      elementProvinsi.className = "provinsi"
-      elementProvinsi.textContent = provinceNames;
-      elementProvinsi.addEventListener("click", ()=>{
-        provinsiSekolahInput.value = provinceNames;
-        provinsiAsalsuggestion.innerHTML = "";
+    const inputValue = inputProvinsiAsal.value.trim(); // Mendapatkan nilai input dan menghapus spasi
+    if (inputValue === '') {
+      provinsiAsalsuggestion.innerHTML = ''; // Kosongkan saran jika input kosong
+      provinsiAsalsuggestion.style.display = 'none'; // Sembunyikan daftar saran
+    } else {
+      const data = await CihuyGet(UrlGetProvinsiSekolah);
+      // Untuk Cek di console
+      console.log("Data yang diterima setelah GET:", data);
+      provinsiAsalsuggestion.textContent = JSON.stringify(data);
+      const provinceNames = data.data.map(provinsi => provinsi.nama_provinsi);
+      provinsiAsalsuggestion.innerHTML = "";
+      provinceNames.forEach(provinceNames=>{
+        const elementProvinsi = document.createElement("div");
+        elementProvinsi.className = "provinsi"
+        elementProvinsi.textContent = provinceNames;
+        elementProvinsi.addEventListener("click", ()=>{
+          provinsiSekolahInput.value = provinceNames;
+          provinsiAsalsuggestion.innerHTML = "";
+        })
+        provinsiAsalsuggestion.appendChild(elementProvinsi);
+        if (provinceNames.length > 0) {
+          provinsiAsalsuggestion.style.display = "block";
+        } else {
+          provinsiAsalsuggestion.style.display = "none";
+        }
       })
-      provinsiAsalsuggestion.appendChild(elementProvinsi);
-      if (provinceNames.length > 0) {
-        provinsiAsalsuggestion.style.display = "block";
-      } else {
-        provinsiAsalsuggestion.style.display = "none";
-      }
-    })
+    }
   } catch (error) {
     console.error("Terjadi kesalahan saat melakukan GET:", error);
   }
@@ -76,33 +81,39 @@ inputProvinsiAsal.addEventListener("input", async()=>{
 
 // Untuk Get All Data Kota Sekolah di Form
 // Membuat Variabel untuk get id element
-const kotaAsalsuggestion = CihuyId('KotaSekolah-suggestions')
+const kotaAsalsuggestion = document.getElementById('KotaSekolah-suggestions')
 const inputKotaAsal = document.getElementById("kota-sekolah");
 
 // Membuat Listener untuk suggestions
 inputKotaAsal.addEventListener("input", async()=>{
   try {
-    const data = await CihuyGet(UrlGetKotaSekolah);
-    // Untuk Cek di console
-    console.log("Data yang diterima setelah GET:", data);
-    kotaAsalsuggestion.textContent = JSON.stringify(data);
-    const cityNames = data.data.map(kota => kota.nama_kota);
-    kotaAsalsuggestion.innerHTML = "";
-    cityNames.forEach(cityNames=>{
-      const elementKota = document.createElement("div");
-      elementKota.className = "kota"
-      elementKota.textContent = cityNames;
-      elementKota.addEventListener("click", ()=>{
-        kotaSekolahInput.value = cityNames;
-        kotaAsalsuggestion.innerHTML = "";
+    const inputValue = inputKotaAsal.value.trim(); // Mendapatkan nilai input dan menghapus spasi
+    if (inputValue === '') {
+      kotaAsalsuggestion.innerHTML = ''; // Kosongkan saran jika input kosong
+      kotaAsalsuggestion.style.display = 'none'; // Sembunyikan daftar saran
+    } else {
+      const data = await CihuyGet(UrlGetKotaSekolah);
+      // Untuk Cek di console
+      console.log("Data yang diterima setelah GET:", data);
+      kotaAsalsuggestion.textContent = JSON.stringify(data);
+      const cityNames = data.data.map(kota => kota.nama_kota);
+      kotaAsalsuggestion.innerHTML = "";
+      cityNames.forEach(cityNames=>{
+        const elementKota = document.createElement("div");
+        elementKota.className = "kota"
+        elementKota.textContent = cityNames;
+        elementKota.addEventListener("click", ()=>{
+          kotaSekolahInput.value = cityNames;
+          kotaAsalsuggestion.innerHTML = "";
+        })
+        kotaAsalsuggestion.appendChild(elementKota);
+        if (cityNames.length > 0) {
+          kotaAsalsuggestion.style.display = "block";
+        } else {
+          kotaAsalsuggestion.style.display = "none";
+        }
       })
-      kotaAsalsuggestion.appendChild(elementKota);
-      if (cityNames.length > 0) {
-        kotaAsalsuggestion.style.display = "block";
-      } else {
-        kotaAsalsuggestion.style.display = "none";
-      }
-    })
+    }
   } catch (error) {
     console.error("Terjadi kesalahan saat melakukan GET:", error);
   }
