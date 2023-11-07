@@ -15,26 +15,32 @@ inputSekolah.addEventListener("input", async()=>{
     nama_sekolah: asalSekolahValue
   };
   try {
-    const data = await CihuyPost(UrlGetSekolah, body);
-    console.log("Data yang diterima setelah POST:", data);
-    asalsekolahsuggestion.textContent = JSON.stringify(data);
-    const schoolNames = data.data.map(sekolah => sekolah.nama_sekolah);
-    asalsekolahsuggestion.innerHTML = "";
-    schoolNames.forEach(schoolNames=>{
-      const elementSekolah = document.createElement("div");
-      elementSekolah.className = "sekolah"
-      elementSekolah.textContent = schoolNames;
-      elementSekolah.addEventListener("click", ()=>{
-        asalSekolahInput.value = schoolNames;
-        asalsekolahsuggestion.innerHTML = "";
+    const inputValue = inputSekolah.value.trim(); // Mendapatkan nilai input dan menghapus spasi
+    if (inputValue === '') { 
+      asalsekolahsuggestion.innerHTML = ''; // Kosongkan saran jika input kosong
+      asalsekolahsuggestion.style.display = 'none'; // Sembunyikan daftar saran
+    } else {
+      const data = await CihuyPost(UrlGetSekolah, body);
+      console.log("Data yang diterima setelah POST:", data);
+      asalsekolahsuggestion.textContent = JSON.stringify(data);
+      const schoolNames = data.data.map(sekolah => sekolah.nama_sekolah);
+      asalsekolahsuggestion.innerHTML = "";
+      schoolNames.forEach(schoolNames=>{
+        const elementSekolah = document.createElement("div");
+        elementSekolah.className = "sekolah"
+        elementSekolah.textContent = schoolNames;
+        elementSekolah.addEventListener("click", ()=>{
+          asalSekolahInput.value = schoolNames;
+          asalsekolahsuggestion.innerHTML = "";
+        })
+        asalsekolahsuggestion.appendChild(elementSekolah);
+        if (schoolNames.length > 0) {
+          asalsekolahsuggestion.style.display = "block";
+        } else {
+          asalsekolahsuggestion.style.display = "none";
+        }
       })
-      asalsekolahsuggestion.appendChild(elementSekolah);
-      if (schoolNames.length > 0) {
-        asalsekolahsuggestion.style.display = "block";
-      } else {
-        asalsekolahsuggestion.style.display = "none";
       }
-    })
   } catch (error) {
     console.error("Terjadi kesalahan saat melakukan POST:", error);
   }
