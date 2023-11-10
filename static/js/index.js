@@ -8,6 +8,14 @@ import { CihuyPost, CihuyGet } from "https://c-craftjs.github.io/api/api.js";
 const asalsekolahsuggestion = CihuyId('AsalSekolah-suggestions')
 const inputSekolah = document.getElementById("AsalSekolah");
 
+document.addEventListener('click', function (event) {
+  const dropdown = document.getElementById('AsalSekolah-suggestions');
+
+  if (!dropdown.contains(event.target)) {
+    dropdown.style.display = 'none';
+  }
+});
+
 // Membuat Listener untuk suggestions
 inputSekolah.addEventListener("input", async () => {
   const asalSekolahValue = inputSekolah.value;
