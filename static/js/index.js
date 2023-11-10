@@ -83,7 +83,6 @@ inputProvinsiAsal.addEventListener("input", async () => {
       provinsiAsalsuggestion.style.display = 'none'; // Sembunyikan daftar saran
       inputKotaAsal.disabled = true;
     } else if (inputValue.length < 2) {
-      // Menampilkan pesan jika panjang input kurang dari 3 karakter
       provinsiAsalsuggestion.textContent = 'Masukkan setidaknya 2 karakter untuk mencari asal provinsi.';
       provinsiAsalsuggestion.style.display = 'block';
     } else {
@@ -138,6 +137,9 @@ inputKotaAsal.addEventListener("input", async () => {
     if (inputValue === '') {
       kotaAsalsuggestion.innerHTML = ''; // Kosongkan saran jika input kosong
       kotaAsalsuggestion.style.display = 'none'; // Sembunyikan daftar saran
+    } else if (inputValue.length < 3) {
+      kotaAsalsuggestion.textContent = 'Masukkan setidaknya 3 karakter untuk mencari asal kota.';
+      kotaAsalsuggestion.style.display = 'block';
     } else {
       const body = {
         id_provinsi: selectedProvinsiId, // Menggunakan ID provinsi yang dipilih
