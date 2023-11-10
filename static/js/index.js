@@ -120,6 +120,7 @@ inputProvinsiAsal.addEventListener("input", async () => {
           }
         })
       }
+      provinsiAsalsuggestion.classList.add('dropdown');
     }
   } catch (error) {
     console.error("Terjadi kesalahan saat melakukan GET:", error);
