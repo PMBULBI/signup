@@ -77,6 +77,7 @@ inputProvinsiAsal.addEventListener("input", async () => {
     if (inputValue === '') {
       provinsiAsalsuggestion.innerHTML = ''; // Kosongkan saran jika input kosong
       provinsiAsalsuggestion.style.display = 'none'; // Sembunyikan daftar saran
+      inputKotaAsal.disabled = true;
     } else {
       const data = await CihuyPost(UrlGetNamaProvinsi, body);
       // Untuk Cek di console
@@ -100,6 +101,7 @@ inputProvinsiAsal.addEventListener("input", async () => {
               provinsiSekolahInput.value = provinceNames;
               provinsiAsalsuggestion.innerHTML = "";
               selectedProvinsiId = selectedProvinsi.id_provinsi; // Menyimpan ID provinsi yang dipilih
+              inputKotaAsal.disabled = false;
             });
           }
           provinsiAsalsuggestion.appendChild(elementProvinsi);
