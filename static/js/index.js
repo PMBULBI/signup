@@ -59,6 +59,7 @@ inputSekolah.addEventListener("input", async () => {
           }
         })
       }
+      asalsekolahsuggestion.classList.add('dropdown');
     }
   } catch (error) {
     console.error("Terjadi kesalahan saat melakukan POST:", error);
