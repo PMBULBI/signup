@@ -79,25 +79,32 @@ inputProvinsiAsal.addEventListener("input", async () => {
     } else {
       const data = await CihuyPost(UrlGetNamaProvinsi, body);
       // Untuk Cek di console
-      console.log("Data yang diterima setelah GET:", data);
-      provinsiAsalsuggestion.textContent = JSON.stringify(data);
-      const provinceNames = data.data.map(provinsi => provinsi.nama_provinsi);
-      provinsiAsalsuggestion.innerHTML = "";
-      provinceNames.forEach(provinceNames => {
-        const elementProvinsi = document.createElement("div");
-        elementProvinsi.className = "provinsi"
-        elementProvinsi.textContent = provinceNames;
-        elementProvinsi.addEventListener("click", () => {
-          provinsiSekolahInput.value = provinceNames;
-          provinsiAsalsuggestion.innerHTML = "";
+      console.log("Data yang diterima setelah POST:", data);
+      if (data.success == false) {
+        // Tampilkan pesan kesalahan
+        provinsiAsalsuggestion.textContent = data.status;
+        provinsiAsalsuggestion.style.display = 'block';
+      } else {
+        // provinsiAsalsuggestion.textContent = JSON.stringify(data);
+        provinsiAsalsuggestion.textContent = '';
+        const provinceNames = data.data.map(provinsi => provinsi.nama_provinsi);
+        provinsiAsalsuggestion.innerHTML = "";
+        provinceNames.forEach(provinceNames => {
+          const elementProvinsi = document.createElement("div");
+          elementProvinsi.className = "provinsi"
+          elementProvinsi.textContent = provinceNames;
+          elementProvinsi.addEventListener("click", () => {
+            provinsiSekolahInput.value = provinceNames;
+            provinsiAsalsuggestion.innerHTML = "";
+          })
+          provinsiAsalsuggestion.appendChild(elementProvinsi);
+          if (provinceNames.length > 0) {
+            provinsiAsalsuggestion.style.display = "block";
+          } else {
+            provinsiAsalsuggestion.style.display = "none";
+          }
         })
-        provinsiAsalsuggestion.appendChild(elementProvinsi);
-        if (provinceNames.length > 0) {
-          provinsiAsalsuggestion.style.display = "block";
-        } else {
-          provinsiAsalsuggestion.style.display = "none";
-        }
-      })
+      }
     }
   } catch (error) {
     console.error("Terjadi kesalahan saat melakukan GET:", error);
