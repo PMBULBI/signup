@@ -1,5 +1,5 @@
 // Import library dan js yang diperlukan
-import { UrlGetKotaSekolah, UrlGetProvinsiSekolah, UrlGetSekolah } from "./template/template.js";
+import { UrlGetKotaSekolah, UrlGetNamaProvinsi, UrlGetSekolah } from "./template/template.js";
 import { CihuyId } from "https://c-craftjs.github.io/element/element.js";
 import { CihuyPost, CihuyGet } from "https://c-craftjs.github.io/api/api.js";
 
@@ -67,13 +67,17 @@ const inputProvinsiAsal = document.getElementById("provinsi-sekolah");
 
 // Membuat Listener untuk suggestions
 inputProvinsiAsal.addEventListener("input", async () => {
+  const provinsiAsalValue = inputProvinsiAsal.value;
+  const body = {
+    nama_provinsi: provinsiAsalValue
+  };
   try {
     const inputValue = inputProvinsiAsal.value.trim(); // Mendapatkan nilai input dan menghapus spasi
     if (inputValue === '') {
       provinsiAsalsuggestion.innerHTML = ''; // Kosongkan saran jika input kosong
       provinsiAsalsuggestion.style.display = 'none'; // Sembunyikan daftar saran
     } else {
-      const data = await CihuyGet(UrlGetProvinsiSekolah);
+      const data = await CihuyPost(UrlGetNamaProvinsi, body);
       // Untuk Cek di console
       console.log("Data yang diterima setelah GET:", data);
       provinsiAsalsuggestion.textContent = JSON.stringify(data);
