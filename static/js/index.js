@@ -154,6 +154,12 @@ const checkbox = document.getElementById("flexCheckDefault");
 // Menyimpan referensi ke tombol "DAFTAR"
 const daftarButton = document.querySelector("button[type='button']");
 
+// Fungsi validasi email regex
+function validateEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
 daftarButton.addEventListener("click", () => {
   // Mengambil nilai dari elemen formulir
   const namaMhs = namaLengkapInput.value;
@@ -164,6 +170,15 @@ daftarButton.addEventListener("click", () => {
   const usernameAdmin = ""; // Gantilah sesuai kebutuhan
 
   let asalSekolah = ''; // Untuk inputan asal sekolah
+
+  if (!validateEmail(emailMhs)) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Email tidak valid!',
+    });
+    return; // Menghentikan eksekusi lebih lanjut
+  }
 
   // Conditional untuk asal sekolah
   if (checkbox.checked) {
