@@ -219,7 +219,7 @@ daftarButton.addEventListener("click", () => {
     });
     return; // Menghentikan eksekusi lebih lanjut
   }
-
+  
   if (!validateEmail(emailMhs)) {
     Swal.fire({
       icon: 'error',
@@ -228,7 +228,16 @@ daftarButton.addEventListener("click", () => {
     });
     return; // Menghentikan eksekusi lebih lanjut
   }
-
+  
+  // Validasi Nomor HP tidak boleh kosong
+  if (hpMhs.trim() === '') {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Nomor HP wajib diisi!',
+    });
+    return; // Menghentikan eksekusi lebih lanjut
+  }
   // Conditional untuk asal sekolah
   if (checkbox.checked) {
     // Validasi provinsi dan kota asal diisi
