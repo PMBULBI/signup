@@ -210,6 +210,16 @@ daftarButton.addEventListener("click", () => {
 
   let asalSekolah = ''; // Untuk inputan asal sekolah
 
+  // Validasi nama tidak boleh kosong
+  if (namaMhs.trim() === '') {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Nama wajib diisi!',
+    });
+    return; // Menghentikan eksekusi lebih lanjut
+  }
+
   if (!validateEmail(emailMhs)) {
     Swal.fire({
       icon: 'error',
