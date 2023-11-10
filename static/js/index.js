@@ -27,6 +27,10 @@ inputSekolah.addEventListener("input", async () => {
     if (inputValue === '') {
       asalsekolahsuggestion.innerHTML = ''; // Kosongkan saran jika input kosong
       asalsekolahsuggestion.style.display = 'none'; // Sembunyikan daftar saran
+    } else if (inputValue.length < 3) {
+      // Menampilkan pesan jika panjang input kurang dari 3 karakter
+      asalsekolahsuggestion.textContent = 'Masukkan setidaknya 3 karakter untuk mencari sekolah.';
+      asalsekolahsuggestion.style.display = 'block';
     } else {
       const data = await CihuyPost(UrlGetSekolah, body);
       console.log("Data yang diterima setelah POST:", data);
