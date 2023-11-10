@@ -82,6 +82,10 @@ inputProvinsiAsal.addEventListener("input", async () => {
       provinsiAsalsuggestion.innerHTML = ''; // Kosongkan saran jika input kosong
       provinsiAsalsuggestion.style.display = 'none'; // Sembunyikan daftar saran
       inputKotaAsal.disabled = true;
+    } else if (inputValue.length < 2) {
+      // Menampilkan pesan jika panjang input kurang dari 3 karakter
+      provinsiAsalsuggestion.textContent = 'Masukkan setidaknya 2 karakter untuk mencari asal provinsi.';
+      provinsiAsalsuggestion.style.display = 'block';
     } else {
       const data = await CihuyPost(UrlGetNamaProvinsi, body);
       // Untuk Cek di console
