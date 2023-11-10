@@ -136,24 +136,31 @@ inputKotaAsal.addEventListener("input", async () => {
       const data = await CihuyPost(UrlGetKotaByIdProvNmKota, body);
       // Untuk Cek di console
       console.log("Data yang diterima setelah GET:", data);
-      kotaAsalsuggestion.textContent = JSON.stringify(data);
-      const cityNames = data.data.map(kota => kota.nama_kota);
-      kotaAsalsuggestion.innerHTML = "";
-      cityNames.forEach(cityNames => {
-        const elementKota = document.createElement("div");
-        elementKota.className = "kota"
-        elementKota.textContent = cityNames;
-        elementKota.addEventListener("click", () => {
-          kotaSekolahInput.value = cityNames;
-          kotaAsalsuggestion.innerHTML = "";
+      if (data.success == false) {
+        // Tampilkan pesan kesalahan
+        kotaAsalsuggestion.textContent = data.status;
+        kotaAsalsuggestion.style.display = 'block';
+      } else {
+        // kotaAsalsuggestion.textContent = JSON.stringify(data);
+        kotaAsalsuggestion.textContent = '';
+        const cityNames = data.data.map(kota => kota.nama_kota);
+        kotaAsalsuggestion.innerHTML = "";
+        cityNames.forEach(cityNames => {
+          const elementKota = document.createElement("div");
+          elementKota.className = "kota"
+          elementKota.textContent = cityNames;
+          elementKota.addEventListener("click", () => {
+            kotaSekolahInput.value = cityNames;
+            kotaAsalsuggestion.innerHTML = "";
+          })
+          kotaAsalsuggestion.appendChild(elementKota);
+          if (cityNames.length > 0) {
+            kotaAsalsuggestion.style.display = "block";
+          } else {
+            kotaAsalsuggestion.style.display = "none";
+          }
         })
-        kotaAsalsuggestion.appendChild(elementKota);
-        if (cityNames.length > 0) {
-          kotaAsalsuggestion.style.display = "block";
-        } else {
-          kotaAsalsuggestion.style.display = "none";
-        }
-      })
+      }
     }
   } catch (error) {
     console.error("Terjadi kesalahan saat melakukan GET:", error);
