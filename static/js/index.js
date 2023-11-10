@@ -175,6 +175,7 @@ inputKotaAsal.addEventListener("input", async () => {
           }
         })
       }
+      kotaAsalsuggestion.classList.add('dropdown');
     }
   } catch (error) {
     console.error("Terjadi kesalahan saat melakukan GET:", error);
