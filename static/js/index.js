@@ -221,6 +221,16 @@ daftarButton.addEventListener("click", () => {
 
   // Conditional untuk asal sekolah
   if (checkbox.checked) {
+    // Validasi provinsi dan kota asal diisi
+    if (provinsiSekolah.trim() === '' || kotaSekolah.trim() === '') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Provinsi dan kota asal harus diisi jika checkbox diceklis!',
+      });
+      return; // Menghentikan eksekusi lebih lanjut
+    }
+    
     asalSekolah = asalSekolahInputManual.value; // Jika checkbox diceklist, gunakan data dari input sekolah manual
   } else {
     asalSekolah = asalSekolahInput.value; // Gunakan data dari input asal sekolah
