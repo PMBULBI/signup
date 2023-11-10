@@ -9,38 +9,45 @@ const asalsekolahsuggestion = CihuyId('AsalSekolah-suggestions')
 const inputSekolah = document.getElementById("AsalSekolah");
 
 // Membuat Listener untuk suggestions
-inputSekolah.addEventListener("input", async()=>{
+inputSekolah.addEventListener("input", async () => {
   const asalSekolahValue = inputSekolah.value;
   const body = {
     nama_sekolah: asalSekolahValue
   };
   try {
     const inputValue = inputSekolah.value.trim(); // Mendapatkan nilai input dan menghapus spasi
-    if (inputValue === '') { 
+    if (inputValue === '') {
       asalsekolahsuggestion.innerHTML = ''; // Kosongkan saran jika input kosong
       asalsekolahsuggestion.style.display = 'none'; // Sembunyikan daftar saran
     } else {
       const data = await CihuyPost(UrlGetSekolah, body);
       console.log("Data yang diterima setelah POST:", data);
-      asalsekolahsuggestion.textContent = JSON.stringify(data);
-      const schoolNames = data.data.map(sekolah => sekolah.nama_sekolah);
-      asalsekolahsuggestion.innerHTML = "";
-      schoolNames.forEach(schoolNames=>{
-        const elementSekolah = document.createElement("div");
-        elementSekolah.className = "sekolah"
-        elementSekolah.textContent = schoolNames;
-        elementSekolah.addEventListener("click", ()=>{
-          asalSekolahInput.value = schoolNames;
-          asalsekolahsuggestion.innerHTML = "";
+      if (data.success == false) {
+        // Tampilkan pesan kesalahan
+        asalsekolahsuggestion.textContent = data.status;
+        asalsekolahsuggestion.style.display = 'block';
+      } else {
+        // asalsekolahsuggestion.textContent = JSON.stringify(data);
+        asalsekolahsuggestion.textContent = '';
+        const schoolNames = data.data.map(sekolah => sekolah.nama_sekolah);
+        asalsekolahsuggestion.innerHTML = "";
+        schoolNames.forEach(schoolNames => {
+          const elementSekolah = document.createElement("div");
+          elementSekolah.className = "sekolah"
+          elementSekolah.textContent = schoolNames;
+          elementSekolah.addEventListener("click", () => {
+            asalSekolahInput.value = schoolNames;
+            asalsekolahsuggestion.innerHTML = "";
+          })
+          asalsekolahsuggestion.appendChild(elementSekolah);
+          if (schoolNames.length > 0) {
+            asalsekolahsuggestion.style.display = "block";
+          } else {
+            asalsekolahsuggestion.style.display = "none";
+          }
         })
-        asalsekolahsuggestion.appendChild(elementSekolah);
-        if (schoolNames.length > 0) {
-          asalsekolahsuggestion.style.display = "block";
-        } else {
-          asalsekolahsuggestion.style.display = "none";
-        }
-      })
       }
+    }
   } catch (error) {
     console.error("Terjadi kesalahan saat melakukan POST:", error);
   }
@@ -51,7 +58,7 @@ const provinsiAsalsuggestion = document.getElementById('ProvinsiSekolah-suggesti
 const inputProvinsiAsal = document.getElementById("provinsi-sekolah");
 
 // Membuat Listener untuk suggestions
-inputProvinsiAsal.addEventListener("input", async()=>{
+inputProvinsiAsal.addEventListener("input", async () => {
   try {
     const inputValue = inputProvinsiAsal.value.trim(); // Mendapatkan nilai input dan menghapus spasi
     if (inputValue === '') {
@@ -64,11 +71,11 @@ inputProvinsiAsal.addEventListener("input", async()=>{
       provinsiAsalsuggestion.textContent = JSON.stringify(data);
       const provinceNames = data.data.map(provinsi => provinsi.nama_provinsi);
       provinsiAsalsuggestion.innerHTML = "";
-      provinceNames.forEach(provinceNames=>{
+      provinceNames.forEach(provinceNames => {
         const elementProvinsi = document.createElement("div");
         elementProvinsi.className = "provinsi"
         elementProvinsi.textContent = provinceNames;
-        elementProvinsi.addEventListener("click", ()=>{
+        elementProvinsi.addEventListener("click", () => {
           provinsiSekolahInput.value = provinceNames;
           provinsiAsalsuggestion.innerHTML = "";
         })
@@ -91,7 +98,7 @@ const kotaAsalsuggestion = document.getElementById('KotaSekolah-suggestions')
 const inputKotaAsal = document.getElementById("kota-sekolah");
 
 // Membuat Listener untuk suggestions
-inputKotaAsal.addEventListener("input", async()=>{
+inputKotaAsal.addEventListener("input", async () => {
   try {
     const inputValue = inputKotaAsal.value.trim(); // Mendapatkan nilai input dan menghapus spasi
     if (inputValue === '') {
@@ -104,11 +111,11 @@ inputKotaAsal.addEventListener("input", async()=>{
       kotaAsalsuggestion.textContent = JSON.stringify(data);
       const cityNames = data.data.map(kota => kota.nama_kota);
       kotaAsalsuggestion.innerHTML = "";
-      cityNames.forEach(cityNames=>{
+      cityNames.forEach(cityNames => {
         const elementKota = document.createElement("div");
         elementKota.className = "kota"
         elementKota.textContent = cityNames;
-        elementKota.addEventListener("click", ()=>{
+        elementKota.addEventListener("click", () => {
           kotaSekolahInput.value = cityNames;
           kotaAsalsuggestion.innerHTML = "";
         })
