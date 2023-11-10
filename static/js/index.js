@@ -170,7 +170,19 @@ daftarButton.addEventListener("click", () => {
     asalSekolah = asalSekolahInputManual.value; // Jika checkbox diceklist, gunakan data dari input sekolah manual
   } else {
     asalSekolah = asalSekolahInput.value; // Gunakan data dari input asal sekolah
+
+    if (asalSekolah.length < 5) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Masukkan setidaknya 5 karakter untuk mencari sekolah sebelum mendaftar!',
+      });
+      return; // Menghentikan eksekusi lebih lanjut
+    }
   }
+
+  // Validasi panjang minimal pencarian sekolah
+
   // Membuat objek data yang akan dikirim
   const data = {
     nama_mhs: namaMhs,
