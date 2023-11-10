@@ -258,7 +258,7 @@ daftarButton.addEventListener("click", () => {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Masukkan setidaknya 5 karakter untuk mencari sekolah sebelum mendaftar!',
+        text: 'Masukkan asal sekolah!',
       });
       return; // Menghentikan eksekusi lebih lanjut
     }
