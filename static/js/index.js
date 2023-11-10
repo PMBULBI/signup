@@ -1,5 +1,5 @@
 // Import library dan js yang diperlukan
-import { UrlGetKotaSekolah, UrlGetNamaProvinsi, UrlGetSekolah } from "./template/template.js";
+import { UrlGetKotaSekolah, UrlGetNamaProvinsi, UrlGetSekolah, UrlGetKotaByIdProvNmKota } from "./template/template.js";
 import { CihuyId } from "https://c-craftjs.github.io/element/element.js";
 import { CihuyPost, CihuyGet } from "https://c-craftjs.github.io/api/api.js";
 
@@ -64,6 +64,7 @@ inputSekolah.addEventListener("input", async () => {
 /// Membuat Variabel untuk get id element
 const provinsiAsalsuggestion = document.getElementById('ProvinsiSekolah-suggestions'); // Perubahan di sini
 const inputProvinsiAsal = document.getElementById("provinsi-sekolah");
+let selectedProvinsiId;
 
 // Membuat Listener untuk suggestions
 inputProvinsiAsal.addEventListener("input", async () => {
@@ -93,10 +94,14 @@ inputProvinsiAsal.addEventListener("input", async () => {
           const elementProvinsi = document.createElement("div");
           elementProvinsi.className = "provinsi"
           elementProvinsi.textContent = provinceNames;
-          elementProvinsi.addEventListener("click", () => {
-            provinsiSekolahInput.value = provinceNames;
-            provinsiAsalsuggestion.innerHTML = "";
-          })
+          const selectedProvinsi = data.data.find(provinsi => provinsi.nama_provinsi === provinceNames);
+          if (selectedProvinsi) {
+            elementProvinsi.addEventListener("click", () => {
+              provinsiSekolahInput.value = provinceNames;
+              provinsiAsalsuggestion.innerHTML = "";
+              selectedProvinsiId = selectedProvinsi.id_provinsi; // Menyimpan ID provinsi yang dipilih
+            });
+          }
           provinsiAsalsuggestion.appendChild(elementProvinsi);
           if (provinceNames.length > 0) {
             provinsiAsalsuggestion.style.display = "block";
@@ -124,7 +129,11 @@ inputKotaAsal.addEventListener("input", async () => {
       kotaAsalsuggestion.innerHTML = ''; // Kosongkan saran jika input kosong
       kotaAsalsuggestion.style.display = 'none'; // Sembunyikan daftar saran
     } else {
-      const data = await CihuyGet(UrlGetKotaSekolah);
+      const body = {
+        id_provinsi: selectedProvinsiId, // Menggunakan ID provinsi yang dipilih
+        nama_kota: inputValue
+      };
+      const data = await CihuyPost(UrlGetKotaByIdProvNmKota, body);
       // Untuk Cek di console
       console.log("Data yang diterima setelah GET:", data);
       kotaAsalsuggestion.textContent = JSON.stringify(data);
