@@ -182,8 +182,6 @@ inputKotaAsal.addEventListener("input", async () => {
   }
 })
 
-// Untuk Melakukan POST Pendaftar Akun
-// Simpan referensi ke elemen-elemen formulir
 const namaLengkapInput = document.getElementById("NamaLengkap");
 const asalSekolahInput = document.getElementById("AsalSekolah");
 const asalSekolahInputManual = document.getElementById("manualSchool");
@@ -193,137 +191,166 @@ const provinsiSekolahInput = document.getElementById("provinsi-sekolah");
 const kotaSekolahInput = document.getElementById("kota-sekolah");
 const checkbox = document.getElementById("flexCheckDefault");
 
-// Menyimpan referensi ke tombol "DAFTAR"
-const daftarButton = document.querySelector("button[type='button']");
+document.addEventListener('DOMContentLoaded', function () {
+  const navbarToggle = document.querySelector('.navbar-toggler');
+  const navbarCollapse = document.querySelector('.navbar-collapse');
 
-// Fungsi validasi email regex
-function validateEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-}
+  navbarToggle.addEventListener('click', function () {
+    navbarCollapse.classList.toggle('show');
+  });
 
-daftarButton.addEventListener("click", () => {
-  // Mengambil nilai dari elemen formulir
-  const namaMhs = namaLengkapInput.value;
-  const emailMhs = emailInput.value;
-  const hpMhs = noHandphoneInput.value;
-  const provinsiSekolah = provinsiSekolahInput.value;
-  const kotaSekolah = kotaSekolahInput.value;
-  const usernameAdmin = ""; // Gantilah sesuai kebutuhan
-
-  let asalSekolah = ''; // Untuk inputan asal sekolah
-
-  // Validasi nama tidak boleh kosong
-  if (namaMhs.trim() === '') {
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Nama wajib diisi!',
-    });
-    return; // Menghentikan eksekusi lebih lanjut
-  }
-  
-  if (!validateEmail(emailMhs)) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Email tidak valid!',
-    });
-    return; // Menghentikan eksekusi lebih lanjut
-  }
-  
-  // Validasi Nomor HP tidak boleh kosong
-  if (hpMhs.trim() === '') {
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Nomor HP wajib diisi!',
-    });
-    return; // Menghentikan eksekusi lebih lanjut
-  }
-  // Conditional untuk asal sekolah
-  if (checkbox.checked) {
-    // Validasi provinsi dan kota asal diisi
-    if (asalSekolahInputManual.value.trim() === ''|| provinsiSekolah.trim() === '' || kotaSekolah.trim() === '') {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Asal Sekolah, Provinsi dan Kota asal harus diisi jika checkbox diceklis!',
-      });
-      return; // Menghentikan eksekusi lebih lanjut
-    }
-    
-    asalSekolah = asalSekolahInputManual.value; // Jika checkbox diceklist, gunakan data dari input sekolah manual
-  } else {
-    asalSekolah = asalSekolahInput.value; // Gunakan data dari input asal sekolah
-
-    if (asalSekolah.length < 5) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Masukkan asal sekolah!',
-      });
-      return; // Menghentikan eksekusi lebih lanjut
-    }
-  }
-
-  // Validasi panjang minimal pencarian sekolah
-
-  // Membuat objek data yang akan dikirim
-  const data = {
-    nama_mhs: namaMhs,
-    asal_sekolah: asalSekolah,
-    email_mhs: emailMhs,
-    hp_mhs: hpMhs,
-    provinsi_sekolah: provinsiSekolah,
-    kota_sekolah: kotaSekolah,
-    username_admin: usernameAdmin,
-  };
-
-  // Menampilkan SweetAlert konfirmasi
-  Swal.fire({
-    title: "Konfirmasi Pembuatan Akun",
-    text: "Apakah Anda yakin ingin membuat akun?",
-    icon: "question",
-    showCancelButton: true,
-    confirmButtonText: "Ya, Daftar",
-    cancelButtonText: "Batal",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      // Mengirim permintaan POST ke endpoint
-      fetch("https://komarbe.ulbi.ac.id/daftar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-        .then((response) => response.json())
-        .then((responseJson) => {
-          // Menampilkan SweetAlert sukses
-          Swal.fire({
-            icon: 'success',
-            title: 'Sukses!',
-            text: 'Akun Berhasil Dibuat',
-            showConfirmButton: false,
-            timer: 1500
-          }).then(() => {
-            window.location.href = 'https://pmb.ulbi.ac.id';
-          })
-          console.log(responseJson);
-        })
-        .catch((error) => {
-          // Menampilkan Data Alert Error
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Akun Gagal Dibuat!',
-          });
-          // Menampilkan pesan kesalahan jika terjadi masalah
-          console.error("Terjadi kesalahan: " + error);
-        });
+  document.addEventListener('click', function (event) {
+    if (!navbarCollapse.contains(event.target) && !navbarToggle.contains(event.target)) {
+      navbarCollapse.classList.remove('show');
     }
   });
+
+  // Fungsi validasi email regex
+  function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  // ... (lanjutan kode Anda untuk dropdown sekolah dan provinsi)
+
+  // Menyimpan referensi ke tombol "DAFTAR"
+  const daftarButton = document.querySelector("button[type='button']");
+
+  // Function to handle form submission
+  async function handleFormSubmit() {
+    // Mengambil nilai dari elemen formulir
+    const namaMhs = namaLengkapInput.value;
+    const emailMhs = emailInput.value;
+    const hpMhs = noHandphoneInput.value;
+    const provinsiSekolah = provinsiSekolahInput.value;
+    const kotaSekolah = kotaSekolahInput.value;
+    const usernameAdmin = ""; // Gantilah sesuai kebutuhan
+
+    let asalSekolah = ''; // Untuk inputan asal sekolah
+
+    // Validasi nama tidak boleh kosong
+    if (namaMhs.trim() === '') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Nama wajib diisi!',
+      });
+      return; // Menghentikan eksekusi lebih lanjut
+    }
+
+    if (!validateEmail(emailMhs)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Email tidak valid!',
+      });
+      return; // Menghentikan eksekusi lebih lanjut
+    }
+
+    // Validasi Nomor HP tidak boleh kosong
+    if (hpMhs.trim() === '') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Nomor HP wajib diisi!',
+      });
+      return; // Menghentikan eksekusi lebih lanjut
+    }
+
+    if (hpMhs.trim() === '') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Nomor HP wajib diisi!',
+      });
+      return; // Menghentikan eksekusi lebih lanjut
+    }
+    // Conditional untuk asal sekolah
+    if (checkbox.checked) {
+      // Validasi provinsi dan kota asal diisi
+      if (asalSekolahInputManual.value.trim() === '' || provinsiSekolah.trim() === '' || kotaSekolah.trim() === '') {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Asal Sekolah, Provinsi dan Kota asal harus diisi jika checkbox diceklis!',
+        });
+        return; // Menghentikan eksekusi lebih lanjut
+      }
+
+      asalSekolah = asalSekolahInputManual.value; // Jika checkbox diceklist, gunakan data dari input sekolah manual
+    } else {
+      asalSekolah = asalSekolahInput.value; // Gunakan data dari input asal sekolah
+
+      if (asalSekolah.length < 5) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Masukkan asal sekolah!',
+        });
+        return; // Menghentikan eksekusi lebih lanjut
+      }
+    }
+
+    console.log("Form submit function called");
+
+    // Membuat objek data yang akan dikirim
+    const data = {
+      nama_mhs: namaMhs,
+      asal_sekolah: asalSekolah,
+      email_mhs: emailMhs,
+      hp_mhs: hpMhs,
+      provinsi_sekolah: provinsiSekolah,
+      kota_sekolah: kotaSekolah,
+      username_admin: usernameAdmin,
+    };
+
+    // Menampilkan SweetAlert konfirmasi
+    Swal.fire({
+      title: "Konfirmasi Pembuatan Akun",
+      text: "Apakah Anda yakin ingin membuat akun?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Ya, Daftar",
+      cancelButtonText: "Batal",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Mengirim permintaan POST ke endpoint
+        fetch("https://komarbe.ulbi.ac.id/daftar", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((responseJson) => {
+            // Menampilkan SweetAlert sukses
+            Swal.fire({
+              icon: 'success',
+              title: 'Sukses!',
+              text: 'Akun Berhasil Dibuat',
+              showConfirmButton: false,
+              timer: 1500
+            }).then(() => {
+              window.location.href = 'https://pmb.ulbi.ac.id';
+            })
+            console.log(responseJson);
+          })
+          .catch((error) => {
+            // Menampilkan Data Alert Error
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Akun Gagal Dibuat!',
+            });
+            // Menampilkan pesan kesalahan jika terjadi masalah
+            console.error("Terjadi kesalahan: " + error);
+          });
+      }
+    });
+  }
+
+  // Add click event listener for form submission
+  daftarButton.addEventListener("click", handleFormSubmit);
+
 });
-
-
