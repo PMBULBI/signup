@@ -211,8 +211,6 @@ document.addEventListener('DOMContentLoaded', function () {
     return emailRegex.test(email);
   }
 
-  // ... (lanjutan kode Anda untuk dropdown sekolah dan provinsi)
-
   // Menyimpan referensi ke tombol "DAFTAR"
   const daftarButton = document.querySelector("button[type='button']");
 
