@@ -23,7 +23,7 @@
     cursor: pointer;
   }
 
-  /* Tambahkan gaya untuk membuat navbar responsif */
+  /* navbar responsif */
 @media (max-width: 768px) {
   .navbar-toggler {
     display: block;
