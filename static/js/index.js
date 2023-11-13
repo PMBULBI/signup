@@ -289,8 +289,6 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
 
-    console.log("Form submit function called");
-
     // Membuat objek data yang akan dikirim
     const data = {
       nama_mhs: namaMhs,
@@ -310,18 +308,21 @@ document.addEventListener('DOMContentLoaded', function () {
       showCancelButton: true,
       confirmButtonText: "Ya, Daftar",
       cancelButtonText: "Batal",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        // Mengirim permintaan POST ke endpoint
-        fetch("https://komarbe.ulbi.ac.id/daftar", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        })
-          .then((response) => response.json())
-          .then((responseJson) => {
+        try {
+          // Mengirim permintaan POST ke endpoint
+          const response = await fetch("https://komarbe.ulbi.ac.id/daftar", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
+
+          const responseJson = await response.json();
+
+          if (responseJson.success) {
             // Menampilkan SweetAlert sukses
             Swal.fire({
               icon: 'success',
@@ -331,19 +332,27 @@ document.addEventListener('DOMContentLoaded', function () {
               timer: 1500
             }).then(() => {
               window.location.href = 'https://pmb.ulbi.ac.id';
-            })
+            });
             console.log(responseJson);
-          })
-          .catch((error) => {
-            // Menampilkan Data Alert Error
+          } else {
+            // Menampilkan SweetAlert gagal dengan pesan dari status
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
-              text: 'Akun Gagal Dibuat!',
+              text: responseJson.status + ", karena akun sudah ada!",
             });
-            // Menampilkan pesan kesalahan jika terjadi masalah
-            console.error("Terjadi kesalahan: " + error);
+            console.error(responseJson);
+          }
+        } catch (error) {
+          // Menampilkan SweetAlert gagal dengan pesan kesalahan
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Akun Gagal Dibuat!',
           });
+          // Menampilkan pesan kesalahan jika terjadi masalah
+          console.error("Terjadi kesalahan: " + error);
+        }
       }
     });
   }
