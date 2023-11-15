@@ -22,3 +22,28 @@
   .dropdown {
     cursor: pointer;
   }
+
+  /* navbar responsif */
+@media (max-width: 768px) {
+  .navbar-toggler {
+    display: block;
+  }
+
+  .navbar-collapse {
+    display: none;
+  }
+
+  .navbar-collapse.show {
+    display: block;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    text-align: center;
+    background-color: #EA5329;
+  }
+
+  .navbar-nav .nav-item {
+    margin: 0;
+  }
+}
