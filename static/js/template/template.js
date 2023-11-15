@@ -7,4 +7,4 @@ export let UrlGetKotaByIdProv = "https://komarbe.ulbi.ac.id/wilayah-kota/getidpr
 export let UrlGetKotaByIdProvNmKota = "https://komarbe.ulbi.ac.id/wilayah-kota/getidprovnmkota";
 
 // Endpoint POST
-export let UrlPostDaftarMahasiswa = "https://komarbe.ulbi.ac.id/daftar"
+export let UrlPostDaftarMahasiswa = "https://komarbe.ulbi.ac.id/pendaftar/daftar"
