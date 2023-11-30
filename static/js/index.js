@@ -332,7 +332,7 @@ document.addEventListener('DOMContentLoaded', function () {
               timer: 1500
             }).then(() => {
               // Untuk simpan data sementara di session storage
-              sessionStorage.getItem('userData', JSON.stringify(responseJson.data));
+              sessionStorage.getItem('userData', JSON.stringify(responseJson.success.data));
               // Redirect ke halaman selanjutnya
               window.location.href = 'akunregistrasi.html';
             });
@@ -362,7 +362,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Add click event listener for form submission
   daftarButton.addEventListener("click", handleFormSubmit);
-
 });
 
 // Untuk di halaman akun registrasi
