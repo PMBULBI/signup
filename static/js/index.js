@@ -312,7 +312,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (result.isConfirmed) {
         try {
           // Mengirim permintaan POST ke endpoint
-          const response = await fetch("https://komarbe.ulbi.ac.id/daftar", {
+          const response = await fetch("https://komarbe.ulbi.ac.id/pendaftar/daftar", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
