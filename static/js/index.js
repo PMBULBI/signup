@@ -364,3 +364,18 @@ document.addEventListener('DOMContentLoaded', function () {
   daftarButton.addEventListener("click", handleFormSubmit);
 
 });
+
+// Untuk di halaman akun registrasi
+document.addEventListener('DOMContentLoaded', function () {
+  const userData = JSON.parse(sessionStorage.getItem('userData'));
+
+  if (userData) {
+    document.getElementById('nama').innerHTML = userData.nama_mhs;
+    document.getElementById('email').innerHTML = userData.email_mhs;
+    document.getElementById('noHandphone').innerHTML = userData.hp_mhs;
+    document.getElementById('password').innerHTML = userData.password;
+    document.getElementById('asalSekolah').innerHTML = userData.asal_sekolah;
+  } else {
+    console.error('User data not found!')
+  }
+});
