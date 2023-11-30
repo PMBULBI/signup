@@ -331,7 +331,10 @@ document.addEventListener('DOMContentLoaded', function () {
               showConfirmButton: false,
               timer: 1500
             }).then(() => {
-              window.location.href = 'https://pmb.ulbi.ac.id';
+              // Untuk simpan data sementara di session storage
+              sessionStorage.getItem('userData', JSON.stringify(responseJson.data));
+              // Redirect ke halaman selanjutnya
+              window.location.href = 'akunregistrasi.html';
             });
             console.log(responseJson);
           } else {
