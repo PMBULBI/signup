@@ -332,14 +332,14 @@ document.addEventListener('DOMContentLoaded', function () {
               showConfirmButton: false,
               timer: 1500
             }).then(() => {
-              // Menangkap id dari respons JSON
-              const id = responseJson.data.id;
+              // Menangkap noHp dari respons JSON
+              const noHp = responseJson.data.hp_mhs;
     
-              // Simpan id ke session storage jika diperlukan
-              sessionStorage.setItem('userId', id);
+              // Simpan noHp ke session storage jika diperlukan
+              sessionStorage.setItem('noHpId', noHp);
     
               // Redirect ke halaman selanjutnya dengan menggunakan id
-              window.location.href = `akunregistrasi.html?id=${id}`;
+              window.location.href = `akunregistrasi.html?noHpId=${noHp}`;
             });
           } else {
             // Menampilkan SweetAlert gagal dengan pesan dari status
