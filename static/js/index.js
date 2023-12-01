@@ -332,14 +332,20 @@ document.addEventListener('DOMContentLoaded', function () {
               showConfirmButton: false,
               timer: 1500
             }).then(() => {
-              // Menangkap noHp dari respons JSON
+              // Menangkap data dari respons JSON
+              const namaMhs = responseJson.data.nama_mhs;
+              const emailMhs = responseJson.data.email_mhs;
               const noHp = responseJson.data.hp_mhs;
+              const asalSekolah = responseJson.data.asal_sekolah;
     
-              // Simpan noHp ke session storage jika diperlukan
-              sessionStorage.setItem('noHpId', noHp);
-    
+              // Simpan data dalam cookie
+              document.cookie = `asalSekolah=${asalSekolah}; path=/`;
+              document.cookie = `namaMhs=${namaMhs}; path=/`;
+              document.cookie = `emailMhs=${emailMhs}; path=/`;
+              document.cookie = `noHp=${noHp}; path=/`;
+                
               // Redirect ke halaman selanjutnya dengan menggunakan id
-              window.location.href = `akunregistrasi.html?noHpId=${noHp}`;
+              window.location.href = `akunregistrasi.html`;
             });
           } else {
             // Menampilkan SweetAlert gagal dengan pesan dari status
