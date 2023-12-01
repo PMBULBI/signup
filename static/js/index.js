@@ -319,9 +319,10 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             body: JSON.stringify(data),
           });
-
+    
           const responseJson = await response.json();
-
+          console.log(responseJson); // Tambahkan ini untuk melihat respons dari API
+    
           if (responseJson.success) {
             // Menampilkan SweetAlert sukses
             Swal.fire({
@@ -331,12 +332,15 @@ document.addEventListener('DOMContentLoaded', function () {
               showConfirmButton: false,
               timer: 1500
             }).then(() => {
-              // Untuk simpan data sementara di session storage
-              sessionStorage.getItem('userData', JSON.stringify(responseJson.success.data));
-              // Redirect ke halaman selanjutnya
-              window.location.href = 'akunregistrasi.html';
+              // Menangkap id dari respons JSON
+              const id = responseJson.data.id;
+    
+              // Simpan id ke session storage jika diperlukan
+              sessionStorage.setItem('userId', id);
+    
+              // Redirect ke halaman selanjutnya dengan menggunakan id
+              window.location.href = `akunregistrasi.html?id=${id}`;
             });
-            console.log(responseJson);
           } else {
             // Menampilkan SweetAlert gagal dengan pesan dari status
             Swal.fire({
@@ -362,19 +366,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Add click event listener for form submission
   daftarButton.addEventListener("click", handleFormSubmit);
-});
-
-// Untuk di halaman akun registrasi
-document.addEventListener('DOMContentLoaded', function () {
-  const userData = JSON.parse(sessionStorage.getItem('userData'));
-
-  if (userData) {
-    document.getElementById('nama').innerHTML = userData.nama_mhs;
-    document.getElementById('email').innerHTML = userData.email_mhs;
-    document.getElementById('noHandphone').innerHTML = userData.hp_mhs;
-    document.getElementById('password').innerHTML = userData.password;
-    document.getElementById('asalSekolah').innerHTML = userData.asal_sekolah;
-  } else {
-    console.error('User data not found!')
-  }
 });
