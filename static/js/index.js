@@ -347,7 +347,7 @@ document.addEventListener('DOMContentLoaded', function () {
               document.cookie = `password=${password}; path=/`;
                 
               // Redirect ke halaman selanjutnya dengan menggunakan id
-              // window.location.href = `akunregistrasi.html`;
+              window.location.href = `akunregistrasi.html`;
             });
           } else {
             // Menampilkan SweetAlert gagal dengan pesan dari status
