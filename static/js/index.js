@@ -337,12 +337,14 @@ document.addEventListener('DOMContentLoaded', function () {
               const emailMhs = responseJson.data.email_mhs;
               const noHp = responseJson.data.hp_mhs;
               const asalSekolah = responseJson.data.asal_sekolah;
+              const password = responseJson.data.password;
     
               // Simpan data dalam cookie
               document.cookie = `asalSekolah=${asalSekolah}; path=/`;
               document.cookie = `namaMhs=${namaMhs}; path=/`;
               document.cookie = `emailMhs=${emailMhs}; path=/`;
               document.cookie = `noHp=${noHp}; path=/`;
+              document.cookie = `password=${password}; path=/`;
                 
               // Redirect ke halaman selanjutnya dengan menggunakan id
               // window.location.href = `akunregistrasi.html`;
