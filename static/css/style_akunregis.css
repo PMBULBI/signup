@@ -1,0 +1,36 @@
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+        font-size: 14px;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-body {
+        padding: 1.25rem; /* Adjust as needed */
+    }
+
+    /* Landscape orientation */
+    @page {
+        size: landscape;
+    }
+
+    /* Hide non-printable elements */
+    body * {
+        visibility: hidden;
+    }
+
+    .card-body, .card-body * {
+        visibility: visible;
+    }
+
+    .card-body {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}
