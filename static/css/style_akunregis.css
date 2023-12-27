@@ -10,13 +10,15 @@
         border-radius: 15px;
     }
 
-    .card-body {
+    .box-body {
         padding: 1.25rem; /* Adjust as needed */
+        width: 1000px; /* Make the box-body fill the entire width */
     }
 
     /* Landscape orientation */
     @page {
         size: landscape;
+        margin: 0; /* Remove default margin to ensure full width */
     }
 
     /* Hide non-printable elements */
@@ -24,11 +26,11 @@
         visibility: hidden;
     }
 
-    .card-body, .card-body * {
+    .box-body, .box-body * {
         visibility: visible;
     }
 
-    .card-body {
+    .box-body {
         position: absolute;
         left: 0;
         top: 0;
